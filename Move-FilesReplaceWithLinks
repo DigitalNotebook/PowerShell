@@ -34,9 +34,9 @@ function Move-FilesReplaceWithLinks {
 
      }
 
- }    
+ }
+        
   
   
-  
-  
-  Move-FilesReplaceWithLinks -SourceFolder C:\Powershell\TestFolder1 -TargetFolder C:\Powershell\TestFolder2 -LastModified 6
+
+  Move-FilesReplaceWithLinks -SourceFolder C:\Powershell\TestFolder1, C:\Powershell\TestFolder2 -TargetFolder C:\Powershell\TestFolder3 -LastModified 6

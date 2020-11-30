@@ -22,7 +22,7 @@
 function Move-FilesReplaceWithLinks {
 
 
-  [cmdletBinding(DefaultParameterSetName='default')]
+  [cmdletBinding()]
   param
   (
    

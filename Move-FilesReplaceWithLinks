@@ -7,19 +7,22 @@
 
     Goals 2
 
-    Support -Whatif
-    Accept the source folder or path from the pipeline
+        Support -Whatif
+        Accept the source folder or path from the pipeline
     [x] Support optional recursion
-    Let the user exclude files by extension
-    Create an audit trail
-    Run as a background job
+        Let the user exclude files by extension
+        Create an audit trail
+        Run as a background job
+
+    Goals 3
+
+        Improve script
 #>
 
 function Move-FilesReplaceWithLinks {
- 
 
 
-  [cmdletBinding()]
+  [cmdletBinding(DefaultParameterSetName='default')]
   param
   (
    
@@ -33,9 +36,11 @@ function Move-FilesReplaceWithLinks {
     [Parameter(Mandatory = $true)]
     $LastModified,
     [Parameter(Mandatory = $false)]
-    [Switch]$Recurse    
+    [Switch]$Recurse
     
   )
+   
+  
   
     if ($Recurse -eq $true )
     {
@@ -45,6 +50,7 @@ function Move-FilesReplaceWithLinks {
     
       $GetSourceFiles = Get-ChildItem -Path $SourceFolder -File | Where-Object  {(Get-Date).AddDays(-$LastModified) -le $_.LastWriteTime}
     }
+     
      
     
  
@@ -71,4 +77,4 @@ function Move-FilesReplaceWithLinks {
   
   
 
-  Move-FilesReplaceWithLinks -SourceFolder C:\Powershell\TestFolder1 -Recurse -TargetFolder C:\Powershell\TestFolder3 -LastModified 6 
+  Move-FilesReplaceWithLinks -SourceFolder C:\Powershell\TestFolder1 -Recurse -TargetFolder C:\Powershell\TestFolder3 -LastModified 6

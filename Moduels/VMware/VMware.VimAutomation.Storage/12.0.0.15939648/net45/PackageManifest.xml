@@ -1,0 +1,11 @@
+<ModulePackages>
+   <Package Id="VMware.VimAutomation.Storage.Commands" Version="12.0.0.15939648" />
+   <Package Id="VMware.VimAutomation.Storage.Impl" Version="12.0.0.15939648" />
+   <Package Id="VMware.VimAutomation.Storage.Interop" Version="12.0.0.15939648" />
+   <Package Id="VMware.VimAutomation.Storage.Types" Version="12.0.0.15939648" />
+   <Package Id="VMware.Spbm.Views" Version="7.0.0.15766955" />
+   <Package Id="SpbmService" Version="7.0.0.15766955" />
+   <Package Id="VMware.Vsan.Views" Version="7.0.0.15767244" />
+   <Package Id="VsanService" Version="7.0.0.15767244" />
+   <Package Id="Vsan65Service" Version="6.5.0.15767244" />
+</ModulePackages>

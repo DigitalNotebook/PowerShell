@@ -29,11 +29,6 @@
     https://github.com/DigitalNotebook/PowerShell
     
 
-    .INPUTS
-    System.Management.Automation.PSCustomObject, System.String
-
-    .OUTPUTS
-    System.Management.Automation.PSCustomObject
   #>
 
 

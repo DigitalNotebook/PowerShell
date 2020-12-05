@@ -22,33 +22,40 @@
         $CimSessionOption = New-CimSessionOption -Protocol Dcom
         $CimSession = New-CimSession -ComputerName $Computer -SessionOption $CimSessionOption -ErrorAction Stop             
    
-        $ComputerSystem  = Get-CimInstance -Class Win32_ComputerSystem  -CimSession $CimSession    
-        $OperatingSystem = Get-CimInstance -Class Win32_OperatingSystem -CimSession $CimSession   
+        $ComputerSystem  = Get-CimInstance -Class Win32_ComputerSystem  -Namespace root\CIMv2 -CimSession $CimSession    
+        $OperatingSystem = Get-CimInstance -Class Win32_OperatingSystem -Namespace root\CIMv2 -CimSession $CimSession  
+       
     
           #Splatting hash table
-          $Properties         =  @{
+          $Properties           =  @{
             Status              = 'Connected CimSession'
             Computername        = $Computer
-            TotalPhysicalMemory = $ComputerSystem.TotalPhysicalMemory
+            UserName            = $ComputerSystem.UserName
+            TotalPhysicalMemory = [math]::round($ComputerSystem.TotalPhysicalMemory / 1gb)
             Manufacturer        = $ComputerSystem.Manufacturer
-            model               = $ComputerSystem.Model
+            model               = $ComputerSystem.Model 
             SystemType          = $ComputerSystem.SystemType
                
-            RegisteredUser      = $OperatingSystem.RegisteredUser
-            OSArchitecture      = $OperatingSystem.OSArchitecture}   
+            
+            OS                  = $OperatingSystem.Version
+            PCSystemType        = $OperatingSystem.ProductType}     
+            
+         
 
       } catch {
 
           $Properties         = @{
             Status              = 'Failed CimSession'
-            Computername        = $Computer
+            Computername        = $null
+            UserName            = $null
             TotalPhysicalMemory = $null
             Manufacturer        = $null
             model               = $null
             SystemType          = $null
                
-            RegisteredUser      = $null
-            OSArchitecture      = $null} 
+            
+            OS                  = $null
+            ProductType         = $null}
        
        
         Write-Verbose $error[0]                              
@@ -79,4 +86,10 @@
 }  
 
   "localhost", "127.0.0.1" | Get-WMIComputer  
+ 
+
+ if ($x -gt $y)
+ {
+   # Content
+ }
  

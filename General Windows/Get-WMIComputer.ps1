@@ -19,7 +19,7 @@
     Get-WMIComputer | Where-object {$_.Status -eq "Success"} 
     
     This command displays only the Success WMI Computers. It uses the Get-WMIComputer cmdlet to get all of the WMI on the computer. The pipeline operator (|) passes the results to the Where-Object cmdlet, which selects
-    only the COmputers with a Status property that equals Success.
+    only the Computers with a Status property that equals Success.
 
     .NOTES
     Windows 10 version history

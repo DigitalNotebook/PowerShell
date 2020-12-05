@@ -35,7 +35,7 @@
             SystemType          = $ComputerSystem.SystemType
                
             RegisteredUser      = $OperatingSystem.RegisteredUser
-          OSArchitecture      = $OperatingSystem.OSArchitecture}   
+            OSArchitecture      = $OperatingSystem.OSArchitecture}   
 
       } catch {
 
@@ -48,7 +48,7 @@
             SystemType          = $null
                
             RegisteredUser      = $null
-          OSArchitecture      = $null} 
+            OSArchitecture      = $null} 
        
        
         Write-Verbose $error[0]                              

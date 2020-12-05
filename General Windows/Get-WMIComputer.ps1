@@ -38,7 +38,7 @@
                
             
             OS                  = $OperatingSystem.Version
-            PCSystemType        = $OperatingSystem.ProductType}     
+            ProductType         = $OperatingSystem.ProductType} # OS Type
             
          
 

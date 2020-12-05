@@ -27,25 +27,27 @@
     
           #Splatting hash table
           $Properties         =  @{
-          Status              = 'Connected CimSession'
-          TotalPhysicalMemory = $ComputerSystem.TotalPhysicalMemory
-          Manufacturer        = $ComputerSystem.Manufacturer
-          model               = $ComputerSystem.Model
-          SystemType          = $ComputerSystem.SystemType
+            Status              = 'Connected CimSession'
+            Computername        = $Computer
+            TotalPhysicalMemory = $ComputerSystem.TotalPhysicalMemory
+            Manufacturer        = $ComputerSystem.Manufacturer
+            model               = $ComputerSystem.Model
+            SystemType          = $ComputerSystem.SystemType
                
-          RegisteredUser      = $OperatingSystem.RegisteredUser
+            RegisteredUser      = $OperatingSystem.RegisteredUser
           OSArchitecture      = $OperatingSystem.OSArchitecture}   
 
       } catch {
 
           $Properties         = @{
-          Status              = 'Failed CimSession'
-          TotalPhysicalMemory = $null
-          Manufacturer        = $null
-          model               = $null
-          SystemType          = $null
+            Status              = 'Failed CimSession'
+            Computername        = $Computer
+            TotalPhysicalMemory = $null
+            Manufacturer        = $null
+            model               = $null
+            SystemType          = $null
                
-          RegisteredUser      = $null
+            RegisteredUser      = $null
           OSArchitecture      = $null} 
        
        

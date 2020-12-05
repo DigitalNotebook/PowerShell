@@ -88,8 +88,3 @@
   "localhost", "127.0.0.1" | Get-WMIComputer  
  
 
- if ($x -gt $y)
- {
-   # Content
- }
- 

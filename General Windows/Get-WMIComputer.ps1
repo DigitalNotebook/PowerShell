@@ -1,12 +1,49 @@
 ﻿Function  Get-WMIComputer
 {
+  <#
+    .SYNOPSIS
+    Gets the WMI on a local or remote computer..
+
+    .DESCRIPTION
+    The Get-WMIComputer cmdlet gets WMI objects from a local or remote computer.
+
+    .PARAMETER Computername
+     Gets WMI information from a string of computers.  
+
+    .EXAMPLE 
+    Get-WMIComputer -ComputerName "Server02" 
+    
+    This command gets the WMI on the Server02 remote computer. 
+
+    .EXAMPLE 
+    Get-WMIComputer | Where-object {$_.Status -eq "Success"} 
+    
+    This command displays only the Success WMI Computers. It uses the Get-WMIComputer cmdlet to get all of the WMI on the computer. The pipeline operator (|) passes the results to the Where-Object cmdlet, which selects
+    only the COmputers with a Status property that equals Success.
+
+    .NOTES
+    Windows 10 version history
+    https://en.wikipedia.org/wiki/Windows_10_version_history
+
+    .LINK
+    https://github.com/DigitalNotebook/PowerShell
+    
+
+    .INPUTS
+    System.Management.Automation.PSCustomObject, System.String
+
+    .OUTPUTS
+    System.Management.Automation.PSCustomObject
+  #>
+
+
   [cmdletBinding()]
   param(
 
     [Parameter(Mandatory                =$True,
         ValueFromPipeline               =$true,
         ValueFromPipelineByPropertyName =$True)]
-    [Alias('Hostname', 'cn', 'Name', 'Computer', 'PC')]  # Flexible ByPropertyName or use Hastable @{ComputerName = "Name";Expression={$_.ComputerName}}
+    [Alias('Hostname', 'cn', 'Name', 'Computer', 'PC')]  # Flexible ByPropertyName or use Hastable @{Name = 'Name'; Expression={$_.ComputerName}}
     [String[]]$Computername
   )
   
@@ -17,7 +54,7 @@
      
     Foreach ($Computer in $Computername) { 
 
-      try {
+      try { # TRY
 
         $CimSessionOption = New-CimSessionOption -Protocol Dcom
         $CimSession = New-CimSession -ComputerName $Computer -SessionOption $CimSessionOption -ErrorAction Stop             
@@ -28,7 +65,7 @@
     
           #Splatting hash table
           $Properties           =  @{
-            Status              = 'Connected CimSession'
+            Status              = 'Success'
             Computername        = $Computer
             UserName            = $ComputerSystem.UserName
             TotalPhysicalMemory = [math]::round($ComputerSystem.TotalPhysicalMemory / 1gb)
@@ -37,15 +74,15 @@
             SystemType          = $ComputerSystem.SystemType
                
             
-            OS                  = $OperatingSystem.Version
-            ProductType         = $OperatingSystem.ProductType} # OS Type
+            OS                  = $OperatingSystem.Version  
+            ProductType         = $OperatingSystem.ProductType} # OS Type - 1 = Desktop OS, 2 = Server OS DC, 3 = Server OS Not DC
             
          
 
-      } catch {
+      } catch { # Catch only runs if TRY fails
 
           $Properties           = @{
-            Status              = 'Failed CimSession'
+            Status              = 'Failure'
             Computername        = $null
             UserName            = $null
             TotalPhysicalMemory = $null
@@ -60,7 +97,7 @@
        
         Write-Verbose $error[0]                              
       
-      } finally {
+      } finally { # Finally only runs if TRY is Success
       
         $object = New-Object -TypeName psobject -Property $Properties              
       
@@ -85,6 +122,7 @@
 
 }  
 
-  "localhost", "127.0.0.1" | Get-WMIComputer  
+"localhost", "127.0.0.1" | Get-WMIComputer  
+
  
 

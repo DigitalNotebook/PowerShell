@@ -6,7 +6,7 @@
     [Parameter(Mandatory                =$True,
         ValueFromPipeline               =$true,
         ValueFromPipelineByPropertyName =$True)]
-    [Alias('Hostname', 'cn', 'Name')]  # Flexible ByPropertyName or use Hastable @{ComputerName = "Name";Expression={$_.ComputerName}}
+    [Alias('Hostname', 'cn', 'Name', 'Computer', 'PC')]  # Flexible ByPropertyName or use Hastable @{ComputerName = "Name";Expression={$_.ComputerName}}
     [String[]]$Computername
   )
   

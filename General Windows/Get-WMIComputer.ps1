@@ -53,16 +53,16 @@
       
       } finally {
       
-        $obj = New-Object -TypeName psobject -Property $Properties              
+        $object = New-Object -TypeName psobject -Property $Properties              
       
       
   
-        if ($obj.status -eq 'Connected CimSession')
+        if ($object.status -eq 'Connected CimSession')
         {
           Remove-CimSession -CimSession $CimSession
        
         }
-        Write-Output  $obj
+        Write-Output  $object
       
       }
  

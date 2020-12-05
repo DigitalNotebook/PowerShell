@@ -44,7 +44,7 @@
 
       } catch {
 
-          $Properties         = @{
+          $Properties           = @{
             Status              = 'Failed CimSession'
             Computername        = $null
             UserName            = $null

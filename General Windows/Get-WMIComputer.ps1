@@ -135,6 +135,6 @@
 
 }  
 
- '127.0.0.1' | Get-WMIComputer |gm
+ '127.0.0.1' | Get-WMIComputer  
  
 

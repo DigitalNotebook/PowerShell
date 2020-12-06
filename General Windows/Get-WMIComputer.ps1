@@ -1,32 +1,41 @@
 ﻿Function  Get-WMIComputer
 {
   <#
-    .SYNOPSIS
-    Gets the WMI on a local or remote computer..
+      .SYNOPSIS
+      Gets the WMI on a local or remote computer..
 
-    .DESCRIPTION
-    The Get-WMIComputer cmdlet gets WMI objects from a local or remote computer.
+      .DESCRIPTION
+      The Get-WMIComputer cmdlet gets WMI objects from a local or remote computer.
 
-    .PARAMETER Computername
-     Gets WMI information from a string of computers.  
+      .PARAMETER Computername
+      Gets WMI information from a string of computers.  
 
-    .EXAMPLE 
-    Get-WMIComputer -ComputerName "Server02" 
+      .PARAMETER Computername
+      Create log in location ' '  
+
+      .EXAMPLE 
+      Get-WMIComputer -ComputerName "Server02" 
     
-    This command gets the WMI on the Server02 remote computer. 
+      This command gets the WMI on the Server02 remote computer. 
 
-    .EXAMPLE 
-    Get-WMIComputer | Where-object {$_.Status -eq "Success"} 
+      .EXAMPLE 
+      Get-WMIComputer -ComputerName "Server02" -ErrorLog 'c:\Powershell\log.txt'
     
-    This command displays only the Success WMI Computers. It uses the Get-WMIComputer cmdlet to get all of the WMI on the computer. The pipeline operator (|) passes the results to the Where-Object cmdlet, which selects
-    only the Computers with a Status property that equals Success.
+      This command gets the WMI on the Server02 remote computer and append errors to specified location 
 
-    .NOTES
-    Windows 10 version history
-    https://en.wikipedia.org/wiki/Windows_10_version_history
 
-    .LINK
-    https://github.com/DigitalNotebook/PowerShell
+      .EXAMPLE 
+      Get-WMIComputer | Where-object {$_.Status -eq "Success"} 
+    
+      This command displays only the Success WMI Computers. It uses the Get-WMIComputer cmdlet to get all of the WMI on the computer. The pipeline operator (|) passes the results to the Where-Object cmdlet, which selects
+      only the Computers with a Status property that equals Success.
+
+      .NOTES
+      Windows 10 version history
+      https://en.wikipedia.org/wiki/Windows_10_version_history
+
+      .LINK
+      https://github.com/DigitalNotebook/PowerShell
     
 
   #>
@@ -35,15 +44,20 @@
   [cmdletBinding()]
   param(
 
-    [Parameter(Mandatory                =$True,
-        ValueFromPipeline               =$true,
+    [Parameter(Mandatory=$True,
+        ValueFromPipeline=$true,
         ValueFromPipelineByPropertyName =$True)]
     [Alias('Hostname', 'cn', 'Name', 'Computer', 'PC')]  # Flexible ByPropertyName or use Hastable @{Name = 'Name'; Expression={$_.ComputerName}}
-    [String[]]$Computername
-  )
+    [String[]]$Computername,
+    [String]$ErrorLog =''
+      )
   
   
-  Begin {}
+  Begin {
+  
+  Write-Verbose "Error Logs location $ErrorLog"
+  
+  }
   Process # Process block is needed to get more than one object out of the pipeline           
   { # Process block is ignored when there is no pipleline input
      
@@ -62,7 +76,7 @@
           $Properties           =  @{
             Status              = 'Success'
             Computername        = $Computer
-            UserName            = $ComputerSystem.UserName
+            UserName            = $ComputerSystem.UserName            
             TotalPhysicalMemory = [math]::round($ComputerSystem.TotalPhysicalMemory / 1gb)
             Manufacturer        = $ComputerSystem.Manufacturer
             model               = $ComputerSystem.Model 
@@ -89,8 +103,11 @@
             OS                  = $null
             ProductType         = $null}
        
+       if ($ErrorLog) {
+         $error[0] | Out-File $ErrorLog -Append
+       }
        
-        Write-Verbose $error[0]                              
+        Write-Verbose $error[0]                            
       
       } finally { # Finally only runs if TRY is Success
       
@@ -117,7 +134,7 @@
 
 }  
 
-"localhost", "127.0.0.1" | Get-WMIComputer  
+"127.0.0.1", "localhos", "127.0.0.1" | Get-WMIComputer  -ErrorLog C:\Powershell\logs.txt -Verbose
 
  
 

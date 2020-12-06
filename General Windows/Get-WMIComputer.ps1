@@ -103,15 +103,16 @@
             OS                  = $null
             ProductType         = $null}
        
-       if ($ErrorLog) {
-         $error[0] | Out-File $ErrorLog -Append
-       }
+        if ($ErrorLog) {
+          $error[0] | Out-File $ErrorLog -Append
+        }
        
         Write-Verbose $error[0]                            
       
       } finally { # Finally only runs if TRY is Success
       
-        $object = New-Object -TypeName psobject -Property $Properties              
+        $object = New-Object -TypeName psobject -Property $Properties  
+        $object.psobject.typenames.insert(0, 'WMI.DigitalNotebook.objects')            
       
       
   
@@ -134,7 +135,6 @@
 
 }  
 
-"127.0.0.1", "localhos", "127.0.0.1" | Get-WMIComputer  -ErrorLog C:\Powershell\logs.txt -Verbose
-
+ '127.0.0.1' | Get-WMIComputer |gm
  
 

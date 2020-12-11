@@ -6,43 +6,21 @@ Function Send-SecurityEventID {
   param(
 
     [Parameter(Mandatory=$True,
-    ValueFromPipeline=$true,
-    ValueFromPipelineByPropertyName =$True)]
-    [int]$ID
+               ValueFromPipeline=$true,
+               ValueFromPipelineByPropertyName =$True)]
+    [int]$ID,
+    [string]$To,
+    [string]$From,
+    [string]$Subject,
+    [string]$SmtpServer
   )   
    
- $Event = Get-WinEvent -MaxEvents 1 -FilterHashTable @{LogName = 'Security';ID = $ID}                  
+ $HashArguments  = @{   #Splatting with hash table  
+      To         =  $To                    
+      From       =  $From                           
+      Subject    =  $Subject                                                         
+      SmtpServer =  $SmtpServer}  
 
- $HashArguments = @{   #Splatting with hash table (Enter Properties) 
- To         =  ''                    
- From       =  ''                           
- Subject    =  'Security Alert'                                           
-                 
- SmtpServer =  ''}  
-
- Send-MailMessage @HashArguments -Body $Event.Message
+ Send-MailMessage @HashArguments -Body ($Event = Get-WinEvent -MaxEvents 1 -FilterHashTable @{LogName = 'Security';ID = $ID}).message
 
 } 
- 
-    
-    
-4798 | Send-SecurityEventID 
-
-
- 
- 
- 
-
-  
-                    
-                                   
- 
-   
-
-
-  
- 
-
-  
-
-   

@@ -15,10 +15,10 @@ Function Send-SecurityEventID {
   )   
    
  $HashArguments  = @{   #Splatting with hash table  
-      To         =  $To                    
-      From       =  $From                           
+      To         =   $To                    
+      From       =   $From                           
       Subject    =  "$Subject - Event ID $ID"
-      SmtpServer =  $SmtpServer}  
+      SmtpServer =   $SmtpServer}  
 
  Send-MailMessage @HashArguments -Body ($Event = Get-WinEvent -MaxEvents 1 -FilterHashTable @{LogName = 'Security';ID = $ID}).message
 

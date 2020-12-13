@@ -1,4 +1,6 @@
-﻿#Exercise 1
+﻿#Part 1 Exercises
+##################
+#Exercise 1
 #Get all services where the display name begins with ‘Windows’.
 
 Get-Service | where {$_.displayname -like 'windows*'}
@@ -188,3 +190,32 @@ Get-Content c:\powershell\services.json |  ConvertFrom-Json
 Test-NetConnection google.com -CommonTCPPort http
 
 Test-NetConnection google.com -Port 80
+
+#Part 2 Exercises
+##################
+
+#Exercise 1
+#Assuming you haven’t modified your PowerShell session with a profile script, what are the default
+#PSDrives for the Registry provider?
+
+Get-PSDrive 
+
+<#
+Name     Provider        
+----     --------         
+Alias    Alias                                              
+C        FileSystem       
+Cert     Certificate                                                                 
+Env      Environment                                        
+Function Function                                           
+HKCU     Registry                         
+HKLM     Registry                         
+Variable Variable                                           
+WSMan    WSMan
+#>                                             
+
+
+
+#Exercise 2
+#How many certificates are installed in the root certificate store for the local machine?
+

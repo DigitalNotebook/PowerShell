@@ -128,7 +128,7 @@ $ex | measure
 
 
 Get-Process -IncludeUserName | where-object {$_.username -like '*localadmin*'} `
-| Export-Clixml c:\powershell\username.xml
+| Export-Clixml c:\powershell\ProcCred.xml
 
 
 

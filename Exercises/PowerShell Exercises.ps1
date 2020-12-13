@@ -149,11 +149,6 @@ $x | Sort-Object -Property company | ft -GroupBy  company
 $x  | Group-Object -Property company -NoElement 
 
 
-
-[xml]$x = Get-Content c:\powershell\ProcCred2.xml
-Select-Xml
-
-
 #Exercise 21
 #Get 10 random numbers between 1 and 50 and multiply each number by itself.
 
@@ -166,7 +161,8 @@ Select-Xml
 #output once you have a solution working.
 
 
-
+$X = Get-WinEvent -FilterHashtable @{logname = 'security'; id = 4625 } -ComputerName localhost `
+| ConvertTo-Html -Property logname, id, machinename -Title "Security events for $env:computername" > c:\powershell\event.html
 
 
 #Exercise 23
@@ -174,7 +170,7 @@ Select-Xml
 
 Find-Module -name '*Teaching*'
 Find-Module  | Where-Object {$_.description -like '*Teaching*' }
-
+Find-Module -Tag teaching 
 
 #Exercise 24
 #Get all running services on the local machine and export the data to a json file. 
@@ -183,6 +179,9 @@ Find-Module  | Where-Object {$_.description -like '*Teaching*' }
 
 
 
-
 #Exercise 25
 #Test the local computer to see if port 80 is open.
+
+Test-NetConnection google.com -CommonTCPPort http
+
+Test-NetConnection google.com -Port 80

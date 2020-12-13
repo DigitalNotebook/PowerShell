@@ -126,6 +126,8 @@ $ex | measure
 #Exercise 19
 #Create an XML file of all processes running under your credentials.
 
+Get-Process -IncludeUserName | where-object {$_.username -eq "$env:USERDOMAIN\$env:USERNAME"} 
+
 
 Get-Process -IncludeUserName | where-object {$_.username -like '*localadmin*'} `
 | Export-Clixml c:\powershell\ProcCred1.xml
@@ -135,12 +137,21 @@ Get-Process -IncludeUserName | where-object {$_.username -like '*localadmin*'} `
 convertto-xml -NoTypeInformation).Save('c:\powershell\ProcCred2.xml')
 
 
-
 #Exercise 20
 #Using the XML file you created in the previous question, import the XML data into your
 #PowerShell session and produce a formatted table report with processes grouped by the 
 #associated company name.
 
+
+$x = Import-Clixml c:\powershell\ProcCred1.xml ` 
+$x | Sort-Object -Property company | ft -GroupBy  company 
+
+$x  | Group-Object -Property company -NoElement 
+
+
+
+[xml]$x = Get-Content c:\powershell\ProcCred2.xml
+Select-Xml
 
 
 #Exercise 21
@@ -168,6 +179,7 @@ Find-Module  | Where-Object {$_.description -like '*Teaching*' }
 #Exercise 24
 #Get all running services on the local machine and export the data to a json file. 
 #Omit the required and dependent services. Verify by re-importing the json file.
+
 
 
 

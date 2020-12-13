@@ -177,6 +177,9 @@ Find-Module -Tag teaching
 #Omit the required and dependent services. Verify by re-importing the json file.
 
 
+Get-Service | Where-Object {$_.Status -eq 'running'} | Select-Object * -ExcludeProperty '*services*'| ConvertTo-Json | Out-File c:\powershell\services.json
+
+Get-Content c:\powershell\services.json |  ConvertFrom-Json
 
 
 #Exercise 25

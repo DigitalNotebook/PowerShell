@@ -128,15 +128,18 @@ $ex | measure
 
 
 Get-Process -IncludeUserName | where-object {$_.username -like '*localadmin*'} `
-| Export-Clixml c:\powershell\ProcCred.xml
+| Export-Clixml c:\powershell\ProcCred1.xml
+
+
+(Get-Process -IncludeUserName | where-object {$_.username -like '*localadmin*'} | `
+convertto-xml -NoTypeInformation).Save('c:\powershell\ProcCred2.xml')
 
 
 
 #Exercise 20
-#Using the XML file you created in the previous question, import the XML data into your PowerShell
-#session and produce a formatted table report with processes grouped by the associated company
-#name.
-
+#Using the XML file you created in the previous question, import the XML data into your
+#PowerShell session and produce a formatted table report with processes grouped by the 
+#associated company name.
 
 
 

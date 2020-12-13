@@ -127,6 +127,8 @@ $ex | measure
 #Create an XML file of all processes running under your credentials.
 
 
+Get-Process -IncludeUserName | where-object {$_.username -like '*localadmin*'} `
+| Export-Clixml c:\powershell\username.xml
 
 
 
@@ -141,7 +143,7 @@ $ex | measure
 #Exercise 21
 #Get 10 random numbers between 1 and 50 and multiply each number by itself.
 
-
+1..10 | ForEach-Object{($X = Get-Random -Minimum 1 -Maximum 50) * $X}
 
 
 #Exercise 22
@@ -156,12 +158,13 @@ $ex | measure
 #Exercise 23
 #Get modules in the PowerShell Gallery that are related to teaching.
 
-
+Find-Module -name '*Teaching*'
+Find-Module  | Where-Object {$_.description -like '*Teaching*' }
 
 
 #Exercise 24
-#Get all running services on the local machine and export the data to a json file. Omit the required
-#and dependent services. Verify by re-importing the json file.
+#Get all running services on the local machine and export the data to a json file. 
+#Omit the required and dependent services. Verify by re-importing the json file.
 
 
 

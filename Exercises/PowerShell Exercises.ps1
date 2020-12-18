@@ -198,24 +198,21 @@ Test-NetConnection google.com -Port 80
 #Assuming you haven’t modified your PowerShell session with a profile script, what are the default
 #PSDrives for the Registry provider?
 
-Get-PSDrive 
-
-<#
-Name     Provider        
-----     --------         
-Alias    Alias                                              
-C        FileSystem       
-Cert     Certificate                                                                 
-Env      Environment                                        
-Function Function                                           
-HKCU     Registry                         
-HKLM     Registry                         
-Variable Variable                                           
-WSMan    WSMan
-#>                                             
-
+HKCU                                   Registry      HKEY_CURRENT_USER         
+HKLM                                   Registry      HKEY_LOCAL_MACHINE 
 
 
 #Exercise 2
 #How many certificates are installed in the root certificate store for the local machine?
 
+    Set-Location -Path LocalMachine\Root
+    Get-ChildItem | Measure-Object
+    
+    Get-ChildItem Cert:\LocalMachine\Root | Measure-Object
+    
+
+#Exercise 3
+#Query the local registry to display the registered owner and organization.
+
+
+    

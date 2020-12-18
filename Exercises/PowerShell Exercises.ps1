@@ -215,4 +215,9 @@ HKLM                                   Registry      HKEY_LOCAL_MACHINE
 #Query the local registry to display the registered owner and organization.
 
 
-    
+Get-ItemPropertyValue -Path  'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' `
+-Name registeredowner, registeredorganization  
+
+#Exercise 4
+#How many functions are defined in your current PowerShell session?
+

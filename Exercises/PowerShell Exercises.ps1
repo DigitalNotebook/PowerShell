@@ -236,14 +236,26 @@ Get-childitem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\'
  | ForEach-Object {Get-ItemProperty $_.pspath | Where-Object {$_.pschildname -notmatch "^{"} } | Select-object -property PSChildName  
 
  
- 
+#Exercise 6
+#Modify the registered organization value in the registry. Verify the change. Then go ahead and
+#change it back to the original value.
+
+
+Get-ItemPropertyValue -Path  'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name registeredorganization  
+
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name registeredorganization -Value ""
+
+
+#Exercise 7
+#What PSProvider supports transactions?
+
+
+get-psprovider | where {$_.Capabilities -like "*transactions*"}
+
+Get-PSProvider | Select name, Capabilities
+
+#Exercise 8
+#How would you find code signing certificates installed on your computer?
 
 
 
-
-
-
-
-
- 
- 

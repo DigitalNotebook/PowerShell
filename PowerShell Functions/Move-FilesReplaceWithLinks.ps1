@@ -1,24 +1,3 @@
-<#Goals 1
-
-    [x] Let the user specify the source folder or path [x]
-    [x] Let the user specify the target folder or path
-    [x] Let the user specify the last modified date or number of days
-    [x] Include appropriate error handling
-
-    Goals 2
-
-        Support -Whatif
-        Accept the source folder or path from the pipeline
-    [x] Support optional recursion
-        Let the user exclude files by extension
-        Create an audit trail
-        Run as a background job
-
-    Goals 3
-
-        Improve script
-#>
-
 function Move-FilesReplaceWithLinks {
 
 

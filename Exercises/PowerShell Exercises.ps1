@@ -221,3 +221,29 @@ Get-ItemPropertyValue -Path  'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion
 #Exercise 4
 #How many functions are defined in your current PowerShell session?
 
+Get-ChildItem function: | measure
+
+#Exercise 5
+#List all applications installed under the Uninstall section of the registry. Give yourself a challenge
+#and filter out those with a GUID for a name.
+
+$install = Get-childitem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Recurse 
+
+Get-childitem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Recurse `
+ | ForEach-Object {Get-ItemProperty $_.pspath | Select-Object displayname}    
+ 
+Get-childitem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Recurse `
+ | ForEach-Object {Get-ItemProperty $_.pspath | Where-Object {$_.pschildname -notmatch "^{"} } | Select-object -property PSChildName  
+
+ 
+ 
+
+
+
+
+
+
+
+
+ 
+ 
